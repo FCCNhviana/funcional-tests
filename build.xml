@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Plata Interface Tests" basedir=".">
+<project name="funcional-tests" basedir=".">
   <description>Plata test plataform</description>
   <property file="${basedir}/project.properties"/>
   <property name="version" value="SNAPSHOT"/>

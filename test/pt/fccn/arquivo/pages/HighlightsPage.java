@@ -36,11 +36,11 @@ import org.openqa.selenium.WebElement;
 public class HighlightsPage {
     private final WebDriver driver;
     
-    private static final String titleTextEN = "Highlighted archive pages - Arquivo.pt";
+    private static final String titleTextEN = "Examples of pages preserved by Arquivo.pt — Portuguese Web Archive";
     
     
     private static final String titleTextPT = "Páginas arquivadas em destaque - Arquivo.pt";
-    private static final String titleSaramago = "José Saramago";
+    private static final String titleSaramago = "Home Page de Portugal / Portugal Home Page";
     private static final String titleOjogo ="Soccer player Luís Figo nominated as the 2001 FIFA World Player of the Year";
     private static final String titleClix = "UEFA Euro 2004";
     private static final String titleExpo = "EXPO '98";
@@ -48,7 +48,8 @@ public class HighlightsPage {
     private static final String titleSapo = "Sapo";
     private static final String titleTim = "Tim Berners-Lee";
     private static final String titlePresidenciais ="portuguese presidentials of 2001";
-    private static final String h1Title= "Highlighted archive pages";
+    private static final String h1Title= "First Portuguese web page (1996)";
+    
     
     public HighlightsPage(WebDriver driver) {
         this.driver = driver;
@@ -67,8 +68,8 @@ public class HighlightsPage {
      * @return true if page contains the expected text
      */
     public boolean isPageCorrect() {
-    	
-        return (h1Title.compareTo(driver.findElement(By.cssSelector("h1")).getText()) == 0);
+        return (h1Title.compareTo(driver.findElement(By.xpath("//a[contains(.,'First Portuguese web page (1996)')]")).getText()) == 0);
+        
     }
     
     /**
@@ -112,10 +113,12 @@ public class HighlightsPage {
      * @return true if all of the links are correct
      */
     public boolean checkHighligthsPageLinks(){
-    	List<WebElement> linkList= driver.findElements(By.tagName("a"));
+    	List<WebElement> linkList= driver.findElements(By.tagName("li"));
+    	
     	String title=null;	
        for(int i=0 ; i<linkList.size() ; i++)
        {
+    	   System.out.print("\nlink:"+linkList.get(i).getAttribute("href"));
        	if(linkList.get(i).getAttribute("href") != null)
        	  {
        		if (linkList.get(i).getAttribute("href").contains("/wayback/wayback")){
@@ -134,6 +137,7 @@ public class HighlightsPage {
      * @return true if matches any title
      */
     public boolean inspectTitlesMatched(String titlepage){
+    	System.out.print("\n\ntitle: "+titlepage);
     	if (titlePresidenciais.trim().toLowerCase().equals(titlepage)){
     		return true;
     	}

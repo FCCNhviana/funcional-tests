@@ -30,7 +30,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import java.io.StringReader;
+import java.sql.Driver;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,6 +46,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import net.sourceforge.htmlunit.corejs.javascript.ast.NewExpression;
+
 
 /**
  * @author Hugo Viana
@@ -51,15 +56,19 @@ import org.xml.sax.SAXException;
 public class OpenSearchPage {
     private final WebDriver driver;
     private final String numberOfResultsTag = "feedContent";
+    private final String listOfResultsTag = "resultados-lista";
+    private static final String searchBox = "txtSearch";
+    private static final String searchButton = "btnSubmit";
     private final String pageURLCheck = "opensearch";
  // Patern to detect if there are results
     private Pattern noResultsPattern = Pattern.compile("\\d Resultados");
-   
+   private boolean isPredProd=false;
     /**
      * Create a new OpenSearchPage from navigation
      * @param driver
      */
-    public OpenSearchPage(WebDriver driver){	
+    public OpenSearchPage(WebDriver driver,boolean isPreProd){	
+    	this.isPredProd=isPreProd;
         this.driver= driver;
         // Check that we're on the right page.
         if (!(driver.getCurrentUrl().contains(pageURLCheck))) {
@@ -77,7 +86,8 @@ public class OpenSearchPage {
         WebElement listOfTitles = driver.findElement(By.xpath("//*[@id='feedContent']"));
         
         if (resultsTags.length()<=0)
-                throw new Exception("No results for term");
+        	return false;
+//                throw new Exception("No results for term");
         return true;
     }
     /**
@@ -90,5 +100,25 @@ public class OpenSearchPage {
         String resultTitle = listOfTitles.getText().split("\n")[0];
         return resultTitle.contains(firstTitleOfResultList);	
     }
+
+    /**
+     * It is only needed when the test is run individually, if not IndexPage will set this variable
+     * Verify that the term exists in as a search result
+     * @param query Term that was searched
+     * @return true if the term exists in the first result title or in the snippet text
+     */
+    public String setFirstResult(String searchTerms) {
+    	
+    	//Create a new firefox driver
+    	WebDriver searchDriver = new FirefoxDriver();
+    	searchDriver.get(driver.getCurrentUrl().split("opensearch")[0]);
+    	searchDriver.findElement(By.id(searchBox)).clear();
+    	searchDriver.findElement(By.id(searchBox)).sendKeys(searchTerms);
+    	searchDriver.findElement(By.id(searchButton)).submit();
+    	WebElement listOfResults = searchDriver.findElement(By.id(listOfResultsTag));
+    	searchDriver.close();
+    	return listOfResults.findElement(By.xpath("//*[@id=\"resultados-lista\"]/ul/li[1]/h2")).getText();
+    }
+    
     
 }

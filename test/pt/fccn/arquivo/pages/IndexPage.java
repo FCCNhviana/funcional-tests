@@ -72,6 +72,7 @@ public class IndexPage {
      * @return result page for query
      */
     public SearchPage search(String searchTerms){
+    	System.out.print("\n\nSearchResults: "+driver.getCurrentUrl());
         driver.findElement(By.id(searchBox)).clear();
         driver.findElement(By.id(searchBox)).sendKeys(searchTerms);
         driver.findElement(By.id(searchButton)).submit();
@@ -82,10 +83,10 @@ public class IndexPage {
      * @param searchTerms String of terms to search for
      * @return result page for query
      */
-    public OpenSearchPage opensarch(String searchTerms){
+    public OpenSearchPage opensarch(String searchTerms,boolean isPredprod){
     	String[] Url = driver.getCurrentUrl().split(".pt");
     	driver.get(Url[0]+".pt/opensearch?query="+searchTerms);
-        return new OpenSearchPage(driver);
+        return new OpenSearchPage(driver,isPredprod);
     }
     
     

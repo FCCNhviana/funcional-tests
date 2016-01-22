@@ -2,9 +2,7 @@ Run test localy
 Running HighlightsTest. 
 Run test localy
 Running testSearchOneTerm. 
-
-
-SearchResults: http://p41.arquivo.pt/Run test localy
+Run test localy
 Running TermsAndConditionsTest. 
 Run test localy
 Running TestSponsorImage. 

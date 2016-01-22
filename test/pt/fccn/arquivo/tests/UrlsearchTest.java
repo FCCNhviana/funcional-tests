@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import pt.fccn.arquivo.pages.AdvancedPage;
+
 import pt.fccn.arquivo.pages.IndexPage;
 import pt.fccn.saw.selenium.WebDriverTestBase;
 
@@ -31,18 +31,20 @@ import pt.fccn.saw.selenium.WebDriverTestBase;
  */
 public class UrlsearchTest extends WebDriverTestBase{
     /**
-     * Tests Advanced search page
+     * Tests an Url search
      */
-	String term = "Pesquisa Avançada — Arquivo.pt";
+	String term = "fccn.pt";
+	String termPT = "fccn.PT";
     @Test
     public void AdvancedTest() {
     	System.out.print("Running UrlsearchTest. \n");
         IndexPage index = new IndexPage(driver);
-        AdvancedPage advancedPage = index.goToAdvancedPage();	
-        assertTrue("The page displayed has not got the title text being displayed",
-        		advancedPage.titleIsCorrect(term));
+        
+        //AdvancedPage advancedPage = index.goToAdvancedPage();	
+        assertTrue("Problems when searching by URL, i.e: fccn.pt and fccn.PT are not the same",
+        		index.searchbyURL(term,termPT));
 
-        assertTrue("The page  is not online",advancedPage.existsInResults(Ispre_prod));
+       // assertTrue("The page  is not online",advancedPage.existsInResults(Ispre_prod));
 
     }
 }

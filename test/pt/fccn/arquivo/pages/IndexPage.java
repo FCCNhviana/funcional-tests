@@ -31,7 +31,7 @@ public class IndexPage {
     // Webdriver that handles page interractions
     private final WebDriver driver;
     private static final String pageURLCheck = "index.jsp";
-    
+    private String url =null;
     private static final String searchBox = "txtSearch";
     private static final String searchButton = "btnSubmit";
     private static final String highlightId = "ver-destaques";
@@ -72,7 +72,6 @@ public class IndexPage {
      * @return result page for query
      */
     public SearchPage search(String searchTerms){
-    	System.out.print("\n\nSearchResults: "+driver.getCurrentUrl());
         driver.findElement(By.id(searchBox)).clear();
         driver.findElement(By.id(searchBox)).sendKeys(searchTerms);
         driver.findElement(By.id(searchButton)).submit();
@@ -138,4 +137,48 @@ public class IndexPage {
         advancedLink.click();
         return new AdvancedPage(driver);
     }
+    
+    /**
+     * Make a search by URL and inspect if the hostname is not case-sensitive
+     * for instance, fccn.pt and fccn.PT are the same
+     * @param query
+     * @return
+     */
+    public boolean searchbyURL(String query,String queryPT){
+	 	
+    	this.url = driver.getCurrentUrl();
+    	String date="10 Dez"; // historical link selected
+    	String title = getTitlesearchbyURL(query,date);
+    	String title_cap=getTitlesearchbyURL(queryPT,date);
+    	if (title==null)
+    		return false;
+    	if (!title.equals(title_cap))
+    		return false;
+    	return true;
+	
+}
+
+/**
+ * Get the title of a page 
+ * query url
+ * date on format "10 Dez"
+ * @return title of the webapge on 10 Dez
+ */
+public String getTitlesearchbyURL(String query,String date){
+		driver.get(this.url);
+		
+		driver.findElement(By.id("txtSearch")).clear();
+		driver.findElement(By.id("txtSearch")).sendKeys(query);
+		driver.findElement(By.id("btnSubmit")).click();
+		String title=null;
+		try {
+			driver.findElement(By.linkText(date)).click();
+			title= driver.getTitle();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return title;
+		}
+		 
+		return title;
+	}
 }

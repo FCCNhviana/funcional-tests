@@ -166,11 +166,16 @@ public class SearchPage {
    		ArchivedPage getfirstResult=null;
    		
    		if(!ispre_prod){
+   			
    			getfirstResult=firstResult();
    			driver.get(driver.getCurrentUrl());
    		}
    		else {
-   			driver.get(this.server_name+"wayback/wayback/20120825003419/http://blogs.sapo.pt/");
+   			try {
+				driver.get(this.server_name+"wayback/wayback/20120825003419/http://blogs.sapo.pt/");
+			} catch (Exception e) {
+				return false;
+			}
 
    		}
    		
@@ -178,17 +183,14 @@ public class SearchPage {
    		try{
    			replay_bar = driver.findElement(By.xpath("//div[@id='replay_bar']"));
    		}catch(NoSuchElementException e){
-   			System.out.print("\n\n Replay bar not found. "+this.getClass().getName());
+   			//System.out.print("Replay bar not found. "+this.getClass().getName());
+   			return false;
    		}
    			
    			if (replay_bar.getText() != null)
-   				{
-   				
    					return true;
-   					
-   				}
    			
-   			return false;
+   		return false;
    	}
   
 }

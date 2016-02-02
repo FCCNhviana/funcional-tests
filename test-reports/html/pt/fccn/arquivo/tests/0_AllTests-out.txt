@@ -1,7 +1,9 @@
 Run test localy
-Running HighlightsTest. 
-Run test localy
+
+Testing Pre-Prod Environment
 Running testSearchOneTerm. 
+Run test localy
+Running HighlightsTest. 
 Run test localy
 Running TermsAndConditionsTest. 
 Run test localy
@@ -12,4 +14,6 @@ Run test localy
 Running TestArcproxy. 
 Run test localy
 Running AdvancedTest. 
+Run test localy
+Running UrlsearchTest. 
 

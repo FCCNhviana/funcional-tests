@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="0" hostname="p18.arquivo.pt" id="0" name="AllTests" package="pt.fccn.arquivo.tests" tests="7" time="65.598" timestamp="2016-01-22T15:23:50">
+  <testsuite errors="0" failures="0" hostname="p18.arquivo.pt" id="0" name="AllTests" package="pt.fccn.arquivo.tests" tests="8" time="67.816" timestamp="2016-02-02T11:59:28">
       <properties>
           <property name="java.vendor" value="Oracle Corporation" />
 
@@ -66,13 +66,13 @@
 
           <property name="sun.boot.library.path" value="/opt/jdk1.7.0_79/jre/lib/amd64" />
 
-          <property name="env.SSH_CONNECTION" value="193.136.44.27 37752 193.136.192.172 22" />
+          <property name="env.SSH_CONNECTION" value="193.136.44.27 44476 193.136.192.172 22" />
 
           <property name="ant.project.name" value="funcional-tests" />
 
           <property name="java.version" value="1.7.0_79" />
 
-          <property name="env.SSH_CLIENT" value="193.136.44.27 37752 22" />
+          <property name="env.SSH_CLIENT" value="193.136.44.27 44476 22" />
 
           <property name="version" value="SNAPSHOT" />
 
@@ -242,24 +242,28 @@
 
       </properties>
 
-      <testcase classname="pt.fccn.arquivo.tests.HighlightsTest" name="highlightLinkTest" time="14.842" />
+      <testcase classname="pt.fccn.arquivo.tests.TestSearchOneTerm" name="testSearchOneTerm" time="4.549" />
 
-      <testcase classname="pt.fccn.arquivo.tests.TestSearchOneTerm" name="testSearchOneTerm" time="5.476" />
+      <testcase classname="pt.fccn.arquivo.tests.HighlightsTest" name="highlightLinkTest" time="13.678" />
 
-      <testcase classname="pt.fccn.arquivo.tests.TermsAndConditionsTest" name="termsAndConditionsTest" time="4.552" />
+      <testcase classname="pt.fccn.arquivo.tests.TermsAndConditionsTest" name="termsAndConditionsTest" time="4.984" />
 
-      <testcase classname="pt.fccn.arquivo.tests.TestSponsorImage" name="test" time="1.058" />
+      <testcase classname="pt.fccn.arquivo.tests.TestSponsorImage" name="test" time="1.334" />
 
-      <testcase classname="pt.fccn.arquivo.tests.TestSearchOneTermOpenSearch" name="testSearchOneTermOpenSearch" time="4.164" />
+      <testcase classname="pt.fccn.arquivo.tests.TestSearchOneTermOpenSearch" name="testSearchOneTermOpenSearch" time="1.803" />
 
-      <testcase classname="pt.fccn.arquivo.tests.TestArcproxy" name="TestArcproxy" time="2.823" />
+      <testcase classname="pt.fccn.arquivo.tests.TestArcproxy" name="TestArcproxy" time="2.916" />
 
-      <testcase classname="pt.fccn.arquivo.tests.AdvancedTest" name="AdvancedTest" time="6.029" />
+      <testcase classname="pt.fccn.arquivo.tests.AdvancedTest" name="AdvancedTest" time="4.208" />
+
+      <testcase classname="pt.fccn.arquivo.tests.UrlsearchTest" name="AdvancedTest" time="6.151" />
 
       <system-out><![CDATA[Run test localy
-Running HighlightsTest. 
-Run test localy
+
+Testing Pre-Prod Environment
 Running testSearchOneTerm. 
+Run test localy
+Running HighlightsTest. 
 Run test localy
 Running TermsAndConditionsTest. 
 Run test localy
@@ -270,6 +274,8 @@ Run test localy
 Running TestArcproxy. 
 Run test localy
 Running AdvancedTest. 
+Run test localy
+Running UrlsearchTest. 
 ]]></system-out>
 
       <system-err />

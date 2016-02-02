@@ -26,7 +26,7 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({ HighlightsTest.class, TestSearchOneTerm.class,
+@SuiteClasses({ TestSearchOneTerm.class,HighlightsTest.class, 
         TermsAndConditionsTest.class, TestSponsorImage.class, TestSearchOneTermOpenSearch.class,TestArcproxy.class,AdvancedTest.class,UrlsearchTest.class })
 public class AllTests {
 

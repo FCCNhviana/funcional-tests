@@ -20,6 +20,7 @@ package pt.fccn.arquivo.pages;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -94,52 +95,60 @@ public class Arcproxyinspection {
 		boolean result=true;
 		try
 		{
-			
 			if (!this.isPredProd){
 				reader = new BufferedReader(new FileReader(filename_prod));
 			}
-			else
+			else{
 				reader = new BufferedReader(new FileReader(filename_pre_prod));
-			while ((id = reader.readLine()) != null)
-			{
-				if(!inspectDate){
-					title_p58=getIdTitle(broker_p58, id,Url);
-					date_p58=getIdDate(broker_p58,id);
-					DateList.add(date_p58);
-					title_p62=getIdTitle(broker_p62, id,Url);
-					date_p62=getIdDate(broker_p62,id);
-
-					//If occurs same pages with different titles or dates
-					if (!date_p58.equals(date_p62) && !title_p58.equals(title_p62)){
-						System.out.print("Inconsistence collection: "+ id +"");
-						reader.close();
-						result = false;
-						throw new IllegalStateException("Inconsistence collection: "+ id +"");
-					}
-					//If the collection is offline
-					if (date_p58 ==null || date_p62==null){
-						System.out.print("Offline collection: "+ id +"");
-						reader.close();
-						result = false;
-						throw new IllegalStateException("The collection which contains " +id+ 
-			                     "is offline");
-					}
-				}
-				else {
-					result =inspectDate(id,i);
-
-				}
-				i++;
 			}
-			reader.close();
-			return result;
+	
+			
+				while ((id = reader.readLine()) != null)
+				{
+					if(!inspectDate ){
+						title_p58=getIdTitle(broker_p58, id,Url);
+						date_p58=getIdDate(broker_p58,id);
+						DateList.add(date_p58); //Contains every dates of web content fetched from the file
+						title_p62=getIdTitle(broker_p62, id,Url);
+						date_p62=getIdDate(broker_p62,id);
+						if (date_p58 !=null && date_p62 !=null && !isPredProd){
+							//If occurs same pages with different titles or dates
+							if (!date_p58.equals(date_p62) && !title_p58.equals(title_p62)){
+								System.out.print("Inconsistence collection: "+ id +"");
+								reader.close();
+								result = false;
+								throw new IllegalStateException("Inconsistence collection: "+ id +"");
+							}
+							//If the collection is offline
+							if (date_p58 ==null || date_p62==null){
+								System.out.print("Offline collection: "+ id +"");
+								reader.close();
+								result = false;
+								throw new IllegalStateException("The collection which contains " +id+ 
+					                     "is offline");
+							}
+							
+							else
+								result = false;
+						}
+					}
+					else {
+						result =inspectDate(id,i);
+
+					}
+					i++;
+				}
+				reader.close();
 		}
 		//Problems opening the file monitored_indexes
-		catch (Exception e)
+		catch (IOException e)
 		{
-			System.out.print("\n\nThere was problems opening configuration "+reader +" :"+this.getClass().getName());
+			System.out.print(reader +" :"+this.getClass().getName()+"\nThere was problems opening configuration ");
 			return false;
 		}
+			
+			return result;
+		
 	}
 
 	/**
@@ -175,7 +184,7 @@ public class Arcproxyinspection {
 			replay_bar_with_date = driver.findElement(By.xpath("//div[@id='replay_bar']"));
 		} catch ( org.openqa.selenium.NoSuchElementException e) {
 			// TODO Auto-generated catch block
-			System.out.print("\nReplay bar not injected. "+id+"\n");
+			//System.out.print("\nReplay bar not injected. "+id+"\n");
 			return null;
 		}
 		aux =replay_bar_with_date.getText();
@@ -213,13 +222,13 @@ public class Arcproxyinspection {
 			date = format.parse(server);
 			timestamp_file = format_arquivo.format(date).trim();
 			if (!(timestamp_file.compareTo(timestamp_site[0].trim())==0)){ // If the timestamp are equals
-				System.out.print("\nDate problems on:"+id+"\n\nDate: "+timestamp_site[0]+"\nDate timestamp:"+timestamp_file);
+				System.out.print("\nDate problems on:"+id+"\nDate: "+timestamp_site[0]+"\nDate timestamp:"+timestamp_file+"\n");
 				result=false;
 			}
 		}
 		catch (Exception e)
 		{
-			System.out.print("\n\nProblems parsing date of the website "+id);
+			//System.out.print("\n\nProblems parsing date of the website "+id+"\n"+this.getClass());
 			return false;
 
 		}

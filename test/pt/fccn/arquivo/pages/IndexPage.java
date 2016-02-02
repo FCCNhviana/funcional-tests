@@ -139,6 +139,14 @@ public class IndexPage {
     }
     
     /**
+     * Click the Highlights page
+     */
+    public Arcproxyinspection arcProxy(Boolean isPreProd){
+        
+        return new Arcproxyinspection(driver,isPreProd);
+    }
+    
+    /**
      * Make a search by URL and inspect if the hostname is not case-sensitive
      * for instance, fccn.pt and fccn.PT are the same
      * @param query
@@ -147,7 +155,7 @@ public class IndexPage {
     public boolean searchbyURL(String query,String queryPT){
 	 	
     	this.url = driver.getCurrentUrl();
-    	String date="10 Dez"; // historical link selected
+    	String date="26 Nov"; // historical link selected
     	String title = getTitlesearchbyURL(query,date);
     	String title_cap=getTitlesearchbyURL(queryPT,date);
     	if (title==null)

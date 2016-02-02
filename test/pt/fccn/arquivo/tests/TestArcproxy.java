@@ -21,7 +21,9 @@ public class TestArcproxy extends WebDriverTestBase{
 	@Test
 	public void TestArcproxy() {
 		System.out.print("Running TestArcproxy. \n");
-		Arcproxyinspection arcproxy = new Arcproxyinspection(driver,Ispre_prod);
+		IndexPage index = new IndexPage(driver);
+		Ispre_prod=index.setPreProd(pre_prod);
+		Arcproxyinspection arcproxy = index.arcProxy(Ispre_prod);
 
 		try {
 			assertTrue("There are problems in the coherence of ArcProxy ",arcproxy.inspectArcproxy(false));

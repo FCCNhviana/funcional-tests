@@ -38,10 +38,9 @@ public class AdvancedTest extends WebDriverTestBase{
     public void AdvancedTest() {
     	System.out.print("Running AdvancedTest. \n");
         IndexPage index = new IndexPage(driver);
+        Ispre_prod=index.setPreProd(pre_prod);
         AdvancedPage advancedPage = index.goToAdvancedPage();	
-        assertTrue("The page displayed has not got the title text being displayed",
-        		advancedPage.titleIsCorrect(term));
-
+        assertTrue("The page displayed has not got the title text being displayed",advancedPage.titleIsCorrect(term));
         assertTrue("The page  is not online",advancedPage.existsInResults(Ispre_prod));
 
     }

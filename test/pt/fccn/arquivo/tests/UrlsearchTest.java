@@ -40,11 +40,8 @@ public class UrlsearchTest extends WebDriverTestBase{
     	System.out.print("Running UrlsearchTest. \n");
         IndexPage index = new IndexPage(driver);
         
-        //AdvancedPage advancedPage = index.goToAdvancedPage();	
         assertTrue("Problems when searching by URL, i.e: fccn.pt and fccn.PT are not the same",
         		index.searchbyURL(term,termPT));
-
-       // assertTrue("The page  is not online",advancedPage.existsInResults(Ispre_prod));
 
     }
 }
